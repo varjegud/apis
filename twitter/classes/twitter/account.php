@@ -32,6 +32,9 @@ class Twitter_Account extends Twitter {
 			'oauth_consumer_key' => $consumer->key,
 		));
 
+		// Authorization is not required
+		$request->required('oauth_token', FALSE);
+
 		if ($token)
 		{
 			// Include the token

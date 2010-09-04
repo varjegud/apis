@@ -2,17 +2,23 @@
 
 class Twitter_User extends Twitter {
 
-	public function show(OAuth_Consumer $consumer, OAuth_Token $token, array $params = NULL)
+	public function show(OAuth_Consumer $consumer, OAuth_Token $token = NULL, array $params = NULL)
 	{
-		// Create a new GET request with the required parameters
-		$request = OAuth_Request::factory('resource', 'GET', $this->url('users/show'), array(
-			'oauth_consumer_key' => $consumer->key,
-			'oauth_token'        => $token->token,
-		));
-
 		if ( ! isset($params['user_id']) AND ! isset($params['screen_name']))
 		{
 			throw new Kohana_OAuth_Exception('Required parameter not passed: user_id or screen_name must be provided');
+		}
+
+		// Create a new GET request with the required parameters
+		$request = OAuth_Request::factory('resource', 'GET', $this->url('users/show'), array(
+				'oauth_consumer_key' => $consumer->key,
+			))
+			->required('oauth_token', FALSE);
+
+		if ($token)
+		{
+			// Include the access token
+			$params['oauth_token'] = $token->token;
 		}
 
 		// Load user parameters

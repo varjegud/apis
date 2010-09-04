@@ -26,10 +26,11 @@ aside { color: #444; }
 section { padding-bottom: 1em; margin-bottom: 1em; border-bottom: solid 1px #ccc; }
 section:last-child { padding-bottom: 0; border-bottom: 0; }
 footer { color: #888; text-align: center; }
+.large { font-size: 1.2em; }
 #body { display: table; margin: 1em 0; width: 100%; border: solid 1px #ccc; border-width: 1px 0; }
 #body #menu { display: table-cell; padding-right: 1em; border-right: solid 1px #ccc; }
 #body #content { display: table-cell; width: 90%; padding: 0 0 1em; }
-#body #content section { padding: 0 1em; }
+#body #content section { padding: 0 1em 1em; }
 </style>
 </head>
 <body>
@@ -50,16 +51,17 @@ footer { color: #888; text-align: center; }
 		<?php endif ?>
 	</nav>
 	<div id="content">
-		<section>
-			<h2>Response</h2>
+		<section class="large">
 			<?php echo $content ?>
 		</section>
+		<?php if ($code): ?>
 		<section>
 			<h3>Source Code</h3>
 			<?php echo $code ?>
 		</section>
+		<?php endif ?>
 	</div>
 </div>
-<footer>©2010 Kohana Team</footer>
+<footer>Created by the <?php echo HTML::anchor('http://kohanaframework.org/team', 'Kohana Team') ?>.</footer>
 </body>
 </html>

@@ -87,7 +87,7 @@ abstract class Controller_Demo extends Controller {
 
 	public function action_index()
 	{
-		// Nothing, the user must choose a demo
+		$this->content = View::factory('api/index');
 	}
 
 	public function action_api($method)
@@ -98,8 +98,22 @@ abstract class Controller_Demo extends Controller {
 		// Start reflection
 		$method = new ReflectionMethod($this, "demo_{$method}");
 
-		// Invoke the method to create content
-		$method->invoke($this);
+		try
+		{
+			// Invoke the method to create content
+			$method->invoke($this);
+		}
+		catch (Exception $e)
+		{
+			// Start buffering
+			ob_start();
+
+			// Render the exception
+			Kohana::exception_handler($e);
+
+			// Capture the exception HTML
+			$this->content = ob_get_clean();
+		}
 
 		// Get the source code for this method
 		$this->code = $this->source($method->getFilename(), $method->getStartLine(), $method->getEndLine());

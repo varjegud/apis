@@ -36,20 +36,16 @@ class Controller_Twitter_Demo extends Controller_Demo {
 	{
 		if (Request::$method === 'POST')
 		{
-			$api = Twitter::factory('user');
+			// Get the screen name and account id from POST
+			$params = Arr::extract($_POST, array('screen_name', 'account_id'));
 
-			if ($screen_name = Arr::get($_POST, 'screen_name'))
+			if ( ! $params)
 			{
-				$params['screen_name'] = $screen_name;
-			}
-			elseif ($account_id = Arr::get($_POST, 'account_id'))
-			{
-				$params['account_id'] = $account_id;
-			}
-			else
-			{
+				// No parameters included
 				$this->request->redirect($this->request->uri);
 			}
+
+			$api = Twitter::factory('user');
 
 			$response = $api->show($this->consumer, $this->token, $params);
 
@@ -58,7 +54,7 @@ class Controller_Twitter_Demo extends Controller_Demo {
 		else
 		{
 			$this->content = View::factory('api/form')
-				->set('message', 'Enter either an account ID or screen name.')
+				->set('message', 'Enter an account ID or screen name.')
 				->set('inputs', array(
 					'Screen Name' => Form::input('screen_name'),
 					'Account ID'  => Form::input('acount_id'),

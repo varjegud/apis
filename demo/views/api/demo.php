@@ -11,17 +11,19 @@
 header, footer, aside, nav, article { display: block; }
 body {
 	margin: 0 auto;
-	width: 60em;
+	width: 80em;
 	font: 80% Helvetica, Arial, sans-serif;
 	background: #f0f0f0;
 }
-nav h2 { font-size: 1em; }
+pre { width: 100%; white-space: pre-wrap; }
 nav ul { padding: 0 1em 1em; }
 nav ul li { list-style: square; margin-left: 1.6em; }
 header { background: #fff; padding: 1em; }
-#body { display: table; margin: 1em 0; }
-#body nav { display: table-cell; padding-right: 1em; border-right: solid 1px #ccc; }
-#body section { display: table-cell; padding-left: 1em; }
+#body { display: table; margin: 1em 0; width: 100%; }
+#body #menu { display: table-cell; padding-right: 1em; border-right: solid 1px #ccc; }
+#body #content { display: table-cell; padding-left: 1em; }
+section { padding-bottom: 1em; margin-bottom: 1em; border-bottom: solid 1px #ccc; }
+section:last-child { padding-bottom: 0; border-bottom: 0; }
 footer { background: #fff; padding: 1em; text-align: center; }
 </style>
 <body>
@@ -29,8 +31,8 @@ footer { background: #fff; padding: 1em; text-align: center; }
 	<h1><?php echo $title ?></h1>
 </header>
 <div id="body">
-	<nav>
-		<h2>Demos</h2>
+	<nav id="menu">
+		<h4>Demos</h4>
 		<?php if ( ! $demos): ?>
 		<p>No demos available. Try enabling a provider API.</p>
 		<?php else: ?>
@@ -41,9 +43,16 @@ footer { background: #fff; padding: 1em; text-align: center; }
 		</ul>
 		<?php endif ?>
 	</nav>
-	<section>
-		<?php echo $content ?>
-	</section>
+	<div id="content">
+		<section>
+			<h2>Response</h2>
+			<?php echo $content ?>
+		</section>
+		<section>
+			<h3>Source Code</h3>
+			<?php echo $code ?>
+		</section>
+	</div>
 </div>
 <footer>©2010 Kohana Team</footer>
 </body>

@@ -15,7 +15,7 @@ body {
 	color: #111;
 	background: #fff;
 }
-pre { width: 100%; white-space: pre-wrap; }
+pre { white-space: pre-wrap; padding: 1em; border: dotted 1px #ddd; }
 form dl { margin: 1em 0; }
 form dl dd { margin: 0 0 0.2em; }
 form dl dd.submit { margin-top: 1em; }

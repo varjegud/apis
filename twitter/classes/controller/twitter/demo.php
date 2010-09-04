@@ -20,7 +20,7 @@ class Controller_Twitter_Demo extends Controller_Demo {
 		$this->content = Kohana::debug($response);
 	}
 
-	public function demo_end_session()
+	public function demo_account_end_session()
 	{
 		$api = Twitter::factory('account');
 
